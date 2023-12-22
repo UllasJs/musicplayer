@@ -10,7 +10,7 @@ module.exports = {
         phone,
         email,
         password,
-        role,
+        role: "user",
       });
       res.status(200).json({ result });
     } catch (error) {
