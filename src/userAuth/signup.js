@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import "./styles/signup.css";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Signup() {
   const [form, setForm] = useState({});
@@ -77,6 +77,10 @@ function Signup() {
         />
         <button onClick={onSubmithandler}>Sign Up</button>
       </form>
+      <div className="gologin">
+      <p>Are you already a user ?</p>
+      <Link to="/login">Login here</Link>
+      </div>
     </div>
   );
 }
