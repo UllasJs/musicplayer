@@ -1,4 +1,5 @@
 const TrackModel = require("../model/track");
+const path = require("path");
 
 module.exports = {
   addTrack: async (req, res) => {
@@ -15,5 +16,18 @@ module.exports = {
     } catch (error) {
       res.status(400).json({ error });
     }
+  },
+  getTrack: async (req, res) => {
+    try {
+      const getresult = await TrackModel.find();
+      res.status(200).json({ getresult });
+    } catch (error) {
+      res.status(400).json({ error });
+    }
+  },
+  getAudio: async (req, res) => {
+    const filename = req.params.filename;
+    const dirname = path.join(`${__dirname}`, "../music");
+    res.sendFile(`${dirname}/${filename}`);
   },
 };

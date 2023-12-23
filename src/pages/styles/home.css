@@ -53,4 +53,13 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  cursor: poniter;
+}
+
+.music_list li p {
+  color: #fff;
+  background-color: #181818;
+  padding: 10px 23px;
+  border-radius: 15px;
+  cursor: pointer;
 }

@@ -1,23 +1,59 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import "./styles/home.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import Sidebar from "../component/sidebar/sidebar";
 import Playlist from "../component/playlist/playlist";
 import Useraccount from "../component/useraccount/useraccount";
+import axios from "axios";
+import Music from "../component/music/music";
 
 function Home() {
   const location = useLocation();
   const nav = useNavigate();
+  const [tracks, setTracks] = useState([]);
+  const [playing, setPlaying] = useState();
 
   // Use URLSearchParams to get the value of id from the search parameters
   const params = new URLSearchParams(location.search);
   const userId = params.get("id");
 
+  const [song, setSong] = useState();
+
   useEffect(() => {
     if (userId === null) {
       nav("/login");
     }
+    axios
+      .get("http://localhost:2000/track/gettrack/")
+      .then((res) => {
+        setTracks(res.data.getresult);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    // console.log(tracks);
+  }, [userId]);
+
+  const trackList = tracks.map((track) => {
+    return (
+      <>
+        <li
+          onClick={() => {
+            setSong(track.music);
+          }}
+          key={track._id}
+        >
+          <p>{track.title}</p>
+        </li>
+      </>
+    );
   });
+
+  console.log(song);
+
+  useEffect(() => {
+    console.log(playing);
+  }, [playing]);
 
   // console.log(userId);
 
@@ -37,19 +73,10 @@ function Home() {
         </div>
         <h2>Music Library</h2>
         <div className="music_library">
-          <ul className="music_list">
-            <li>
-              <a href="_blank">music</a>
-            </li>
-            <li>
-              <a href="_blank">music</a>
-            </li>
-            <li>
-              <a href="_blank">music</a>
-            </li>
-          </ul>
+          <ul className="music_list">{trackList}</ul>
         </div>
       </div>
+      <Music song={song} />
     </div>
   );
 }
