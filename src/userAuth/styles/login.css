@@ -13,6 +13,8 @@ form {
   height: 400px;
   padding: 30px;
   border: 1px solid #fff;
+  justify-content: center;
+  align-items: center;
 }
 .fields {
   display: flex;
@@ -29,4 +31,20 @@ input {
   font-size: 16px;
   padding: 8px 15px;
   border-radius: 8px;
+}
+button {
+  width: 50%;
+  text-align: center;
+  color: #181818;
+  background-color: #fff;
+  border: 0.5px solid #fff;
+  padding: 8px 15px;
+  border-radius: 10px;
+  cursor: pointer;
+  transition: all 0.3s ease-in-out;
+}
+
+button:hover {
+  color: #fff;
+  background-color: #181818;
 }

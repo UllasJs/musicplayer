@@ -1,0 +1,42 @@
+.profilepage {
+  display: flex;
+  background-color: #181818;
+  
+}
+.profile_menu {
+  margin: 5px;
+  background-color: #1d2c38;
+  width: 100%;
+  padding: 20px;
+}
+
+.profile_menu h1 {
+  font-size: 32px;
+  color: #fff;
+  font-weight: 700;
+  font-family: 'Inter', sans-serif;
+}
+
+.profile_menu h3 {
+  font-size: 26px;
+  color: #fff;
+}
+
+.fields p {
+  color: #fff;
+  font-size: 24px;
+}
+
+.admin_panel {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  width: 100px;
+  border: 1px solid #fff;
+  text-align: center;
+  color: #fff;
+  text-decoration: none;
+  padding: 5px 8px;
+  border-radius: 8px;
+  display: none;
+}

@@ -2,7 +2,7 @@ const NormalUser = require("../model/normal");
 
 module.exports = {
   adduser: async (req, res) => {
-    const { firstname, lastname, phone, email, password, role } = req.body;
+    const { firstname, lastname, phone, email, password } = req.body;
     try {
       const result = await NormalUser.create({
         firstname,

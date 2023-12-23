@@ -1,11 +1,10 @@
 import "./styles/login.css";
 import React, { useState } from "react";
 import axios from "axios";
-import { useNavigate } from "react-router-dom";
+import { useNavigate, Link } from "react-router-dom";
 
 function Login() {
   const nav = useNavigate();
-
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
   const [users, setUsers] = useState([]);
@@ -22,7 +21,8 @@ function Login() {
         console.log(err);
       });
 
-    const logged = users.map((user) => {
+    // eslint-disable-next-line array-callback-return
+    users.map((user) => {
       // console.log(user);
       if (user.email === email) {
         if (user.password === pass) {
@@ -31,11 +31,9 @@ function Login() {
           alert("Wrong Password!");
         }
       } else {
-        alert("user not found");
+        // alert("user not found");
       }
     });
-
-    console.log(logged);
   };
 
   return (
@@ -59,12 +57,15 @@ function Login() {
             onChange={(event) => {
               setPass(event.target.value);
             }}
-            placeholder="Enter email!"
+            placeholder="Enter Password!"
             required
           />
         </div>
         <button onClick={LogUser}>Login</button>
       </form>
+      <p>
+        new user ?<Link to="/signup">Sign up</Link>
+      </p>
     </div>
   );
 }
