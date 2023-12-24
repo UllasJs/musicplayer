@@ -3,12 +3,14 @@ import "./music.css";
 import axios from "axios";
 
 function Music({ song }) {
-  const src = `http://localhost:2000/track/music/${song}`;
   const [tracks, setTracks] = useState([]);
   const [like, setLike] = useState(0);
   const [id, setId] = useState("");
 
   useEffect(() => {
+    if (!song) {
+      return;
+    }
     axios
       .get("http://localhost:2000/track/gettrack/")
       .then((res) => {
@@ -18,12 +20,17 @@ function Music({ song }) {
         console.log(error);
       });
     tracks.map((track) => {
-      if ((track.music = song)) {
+      if (track.music === song) {
         setLike(track.likes);
         setId(track._id);
       }
     });
-  }, [song]);
+  }, [song, tracks]);
+
+  // if (!song) {
+  //   // Render nothing if song is not available
+  //   return null;
+  // }
 
   const DislikeBTN = document.getElementById("dislikeBtn");
   const likeBTN = document.getElementById("likeBtn");
@@ -58,6 +65,7 @@ function Music({ song }) {
     DislikeBTN.style.display = "none";
   };
 
+
   return (
     <div className="player">
       <div className="player_inside">
@@ -66,7 +74,11 @@ function Music({ song }) {
           <p>| {like} likes </p>
         </div>
         <div className="audioTag">
-          <audio controls src={src}></audio>
+          <audio
+          key={song}
+            controls
+            src={`http://localhost:2000/track/music/${song}`}
+          ></audio>
         </div>
         <div className="like_dislike">
           <button id="likeBtn" onClick={addlike}>

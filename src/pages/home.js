@@ -1,8 +1,7 @@
-import React, { useEffect, useRef, useState } from "react";
+import React, { useEffect, useState } from "react";
 import "./styles/home.css";
 import { useLocation, useNavigate } from "react-router-dom";
 import Sidebar from "../component/sidebar/sidebar";
-import Playlist from "../component/playlist/playlist";
 import Useraccount from "../component/useraccount/useraccount";
 import axios from "axios";
 import Music from "../component/music/music";
@@ -59,14 +58,7 @@ function Home() {
       <Sidebar />
       <div className="home">
         <h3 className="goodmorning">Good Morning</h3>
-        <div className="playlists_bar">
-          <Playlist />
-          <Playlist />
-          <Playlist />
-          <Playlist />
-          <Playlist />
-          <Playlist />
-        </div>
+        <div className="playlists_bar"></div>
         <h2>Music Library</h2>
         <div className="music_library">
           <ul className="music_list">{trackList}</ul>
