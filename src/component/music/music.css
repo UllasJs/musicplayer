@@ -5,30 +5,18 @@
   background-color: #fff;
   position: absolute;
   display: flex;
-  justify-content: space-between;
+  justify-content: center;
   align-items: center;
-  flex-direction: column;
 }
-.player_controlls {
-  /* background-color: red; */
-  width: 400px;
-  height: 40px;
+
+.player_inside {
+  width: 80%;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  gap: 40px;
 }
-.trackdet {
-  width: 400px;
-  height: 10px;
-  z-index: 1;
-  text-align: center;
-}
-p {
-  margin: 0;
-}
-button {
-  padding: 0 10px;
-  margin: 0;
-  font-size: 14px !important;
+
+.song_dets {
+  display: flex;
+  gap: 15px;
 }

@@ -7,11 +7,14 @@ const port = 2000;
 
 const normalRouter = require("./router/normal");
 const trackRouter = require("./router/track");
+const playlistRouter = require("./router/playlist");
 
 app.use(bodyparser.json());
 app.use(cors());
+
 app.use("/user", normalRouter);
 app.use("/track", trackRouter);
+app.use("/playlist", playlistRouter);
 
 app.listen(port, () => {
   console.log(`App Listening on port ${port}`);

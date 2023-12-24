@@ -14,6 +14,12 @@ const TrackModel = new Schema({
     type: String,
     required: true,
   },
+  likes: {
+    type: Number,
+  },
+  dislikes: {
+    type: Number,
+  },
 });
 
 module.exports = mongoose.model("track", TrackModel);

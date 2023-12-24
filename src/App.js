@@ -6,6 +6,7 @@ import Home from "./pages/home";
 import Userprofile from "./pages/userprofile";
 import Admin from "./userAuth/admin_panel/admin";
 import AddSong from "./pages/addsong";
+import PlaylistPage from "./pages/playlistpage";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />}></Route>
           <Route path="/userProfile" element={<Userprofile />}></Route>
+          <Route path="/playlist" element={<PlaylistPage />}></Route>
           <Route path="/addsong" element={<AddSong />}></Route>
           <Route path="/admin" element={<Admin />}></Route>
           <Route path="/signup" element={<Signup />}></Route>

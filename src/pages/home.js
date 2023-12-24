@@ -34,22 +34,18 @@ function Home() {
     // console.log(tracks);
   }, [userId]);
 
-  const trackList = tracks.map((track) => {
+  const trackList = tracks.map((track, index) => {
     return (
-      <>
-        <li
-          onClick={() => {
-            setSong(track.music);
-          }}
-          key={track._id}
-        >
-          <p>{track.title}</p>
-        </li>
-      </>
+      <li
+        onClick={() => {
+          setSong(track.music);
+        }}
+        key={index}
+      >
+        <p>{track.title}</p>
+      </li>
     );
   });
-
-  console.log(song);
 
   useEffect(() => {
     console.log(playing);

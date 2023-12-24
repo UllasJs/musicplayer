@@ -18,5 +18,6 @@ const TrackControl = require("../controller/trackcontrol");
 router.post("/addtrack", upload.single("music"), TrackControl.addTrack);
 router.get("/music/:filename", TrackControl.getAudio);
 router.get("/gettrack", TrackControl.getTrack);
+router.put("/edittrack/:id", TrackControl.editTrack);
 
 module.exports = router;

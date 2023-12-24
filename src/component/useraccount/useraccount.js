@@ -35,6 +35,7 @@ function Useraccount() {
       <Link to={`/userProfile/?id=${userId}`}>
         {user.firstname + " " + user.lastname}
       </Link>
+      <Link to="/login">LogOut</Link>
     </div>
   );
 }
