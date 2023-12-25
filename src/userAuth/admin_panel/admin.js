@@ -21,6 +21,7 @@ function Admin() {
     });
 
   const delteBtn = document.querySelector(".dlt__btn");
+  
 
   return (
     <div className="admin_panel_page_main">

@@ -12,7 +12,6 @@ function Home() {
   const [tracks, setTracks] = useState([]);
   const [playing, setPlaying] = useState();
 
-  // Use URLSearchParams to get the value of id from the search parameters
   const params = new URLSearchParams(location.search);
   const userId = params.get("id");
 
@@ -30,7 +29,6 @@ function Home() {
       .catch((error) => {
         console.log(error);
       });
-    // console.log(tracks);
   }, [userId, song]);
 
   const trackList = tracks.map((track, index) => {
@@ -50,7 +48,6 @@ function Home() {
     console.log(playing);
   }, [playing]);
 
-  // console.log(userId);
 
   return (
     <div className="home-main">

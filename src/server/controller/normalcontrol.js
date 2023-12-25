@@ -1,4 +1,3 @@
-// const validator = require("validator");
 const NormalUser = require("../model/normal");
 const bcrypt = require("bcrypt");
 const jwt = require("jsonwebtoken");

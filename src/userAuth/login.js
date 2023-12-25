@@ -15,7 +15,6 @@ function Login() {
     e.preventDefault();
 
     try {
-      // Sign in and get the token
       const signInResponse = await axios.post(
         "http://localhost:2000/user/signin",
         {
@@ -27,16 +26,13 @@ function Login() {
       const token = signInResponse.data.token;
       console.log("Token:", token);
 
-      // Set the token in the state or secure storage
       setToken(token);
 
-      // Verify the token
       const verifyTokenResponse = await axios.post(
         "http://localhost:2000/user/verifyToken",
         { token }
       );
 
-      // Log the decoded token (assuming verifyTokenResponse contains the decoded token)
       console.log("Decoded Token:", verifyTokenResponse.data);
       if (verifyTokenResponse.data._id) {
         nav(`/?id=${verifyTokenResponse.data._id}&token=${token}`)
@@ -44,7 +40,6 @@ function Login() {
     } catch (error) {
       console.error("Error during login or token verification:", error);
 
-      // Handle errors, e.g., show an error message to the user
     }
 
 

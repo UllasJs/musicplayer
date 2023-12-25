@@ -1,0 +1,19 @@
+.searchsong__outer {
+  display: flex;
+  width: 100%;
+  background-color: #181818;
+}
+.search_inner {
+  background-color: #1d2c38;
+  width: 100%;
+  margin: 5px;
+  padding: 20px;
+}
+.songs__ul {
+  height: 500px;
+  overflow-y: scroll;
+}
+.track__music {
+  color: #fff;
+  cursor: pointer;
+}

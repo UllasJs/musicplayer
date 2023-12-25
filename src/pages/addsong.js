@@ -7,7 +7,6 @@ function AddSong() {
   const location = useLocation();
   const [user, setUser] = useState({});
 
-  // Use URLSearchParams to get the value of id from the search parameters
   const params = new URLSearchParams(location.search);
   const userId = params.get("id");
   const [musicForm, setMusicForm] = useState({

@@ -24,6 +24,15 @@ module.exports = {
       res.status(400).json({ error });
     }
   },
+  getplaylistbyid: async (req, res) => {
+    const id = req.params.id;
+    try {
+      const getresult = await PlayListModel.findById(id);
+      res.status(200).json({ getresult });
+    } catch (error) {
+      res.status(400).json({ error });
+    }
+  },
   updateplaylist: async (req, res) => {
     const id = req.params.id;
 

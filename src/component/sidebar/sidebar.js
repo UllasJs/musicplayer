@@ -11,13 +11,11 @@ function Sidebar() {
   const [tracks, setTracks] = useState([]);
   const [playlist, setPlaylist] = useState([]);
   const [addedItems, setAddedItems] = useState([]);
-  // const [playId, setPlayId] = useState("");
 
   const [play, setplay] = useState([]);
 
   const [playname, setPlayName] = useState("");
 
-  // Use URLSearchParams to get the value of id from the search parameters
   const params = new URLSearchParams(location.search);
   const userId = params.get("id");
 
@@ -104,7 +102,6 @@ function Sidebar() {
       });
   });
   const playlists = play.map((item) => {
-    // setPlayId(item._id);
     if (item.user === userId)
       return (
         <li className="playlistList" key={item._id}>

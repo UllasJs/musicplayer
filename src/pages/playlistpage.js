@@ -16,8 +16,6 @@ function PlaylistPage() {
   useEffect(() => {
     console.log("User ID:", userId);
     console.log("Play ID:", playId);
-
-    // Your other component logic here...
   }, [userId, playId]);
 
   const [editplayname, setEditplayname] = useState("");
@@ -34,11 +32,14 @@ function PlaylistPage() {
 
   const [songId, setSongId] = useState("");
 
+  const [tracks, setTracks] = useState([]);
+  const [playlist, setPlaylist] = useState([]);
+  const [addedItems, setAddedItems] = useState([]);
+
   useEffect(() => {
     axios
       .get("http://localhost:2000/playlist/getplaylist/")
       .then((res) => {
-        // console.log(res.data.getresult);
         setplays(res.data.getresult);
         plays.map((item) => {
           if (item.user === userId) {
@@ -71,8 +72,6 @@ function PlaylistPage() {
             console.log("Song ID : ", songId);
             play.musiclist.forEach((list, index) => {
               if (list === songId) {
-                // console.log("Removing song with ID:", songId);
-                // Find the index of the element in the array and remove it
                 play.musiclist.splice(index, 1);
                 updatePlays(plays);
               }
@@ -100,20 +99,14 @@ function PlaylistPage() {
             console.log(res.data.getresult);
           })
           .catch((err) => {
-            // Log the entire error object to get more details
             console.error("Axios Error:", err);
 
-            // Log specific details like status and response data
             if (err.response) {
-              // The request was made and the server responded with a status code
-              // that falls out of the range of 2xx
               console.error("Status Code:", err.response.status);
               console.error("Response Data:", err.response.data);
             } else if (err.request) {
-              // The request was made but no response was received
               console.error("No response received:", err.request);
             } else {
-              // Something happened in setting up the request that triggered an Error
               console.error("Error during request setup:", err.message);
             }
           });
@@ -124,7 +117,6 @@ function PlaylistPage() {
   const MusicList = musicid.map((mus, index) => {
     const matchedAudio = audios.find((item) => item._id === mus);
 
-    // Check if a matching audio is found
     if (matchedAudio) {
       return (
         <li className="playlist_music" key={index}>
@@ -149,7 +141,6 @@ function PlaylistPage() {
       );
     }
 
-    // Optionally, you can return null or an empty fragment for items without a match
     return null;
   });
 
@@ -166,8 +157,93 @@ function PlaylistPage() {
     nav(`/?id=${userId}`);
   };
 
+  useEffect(() => {
+    axios
+      .get("http://localhost:2000/track/gettrack/")
+      .then((res) => {
+        setTracks(res.data.getresult);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  }, []);
+
+  const addToPlaylist = (itemId, title) => {
+    if (!playlist.includes(itemId)) {
+      setPlaylist((prevPlaylist) => [...prevPlaylist, itemId]);
+      setAddedItems((prevItems) => [...prevItems, itemId]);
+    } else {
+      console.log(`${title} is already in the playlist`);
+    }
+
+    updatePlaysMusic();
+  };
+
+  const [updatePlay, setUpdatePlay] = useState({});
+
+  const updatePlaysMusic = () => {
+    axios
+      .get(`http://localhost:2000/playlist/getplaylistbyid/${playId}`)
+      .then((res) => {
+        const currentPlaylist = res.data.getresult;
+
+        const uniqueAddedItems = addedItems.filter(
+          (item) => !currentPlaylist.musiclist.includes(item)
+        );
+
+        if (uniqueAddedItems.length === 0) {
+          console.log("No new items to add.");
+          return;
+        }
+
+        const updatedPlaylist = {
+          ...currentPlaylist,
+          musiclist: [...currentPlaylist.musiclist, ...uniqueAddedItems],
+        };
+
+        setUpdatePlay(updatedPlaylist);
+
+        console.log("Current playlist:", updatedPlaylist);
+
+        axios
+          .put(
+            `http://localhost:2000/playlist/updateplaylist/${playId}`,
+            updatedPlaylist
+          )
+          .then((res) => {
+            console.log("Playlist updated successfully:", res.status);
+          })
+          .catch((error) => {
+            console.error("Error updating playlist:", error);
+          });
+      })
+      .catch((error) => {
+        console.error("Error fetching playlist:", error);
+      });
+  };
+
+  const musicLib = tracks.map((item) => {
+    const isAdded = addedItems.includes(item._id);
+
+    return (
+      <li key={item._id} style={{ display: isAdded ? "none" : "block" }}>
+        <p
+          onClick={() => {
+            addToPlaylist(item._id, item.title);
+          }}
+          className="music__text"
+        >
+          {item.title}
+        </p>
+      </li>
+    );
+  });
+
   return (
     <div className="playlist__page">
+      <div className="add___music">
+        <ul className="add__music__list">{musicLib}</ul>
+      </div>
       <Sidebar />
       <div className="playlist_main">
         <h1>{playname}</h1>
@@ -179,7 +255,8 @@ function PlaylistPage() {
               setEditplayname(e.target.value);
             }}
           />
-          <button className="playnameEditbtn"
+          <button
+            className="playnameEditbtn"
             onClick={() => {
               axios
                 .put(

@@ -1,11 +1,11 @@
 import React, { useState } from "react";
 import "./styles/signup.css";
 import axios from "axios";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 function Signup() {
   const [form, setForm] = useState({});
-
+  const nav = useNavigate();
 
   const OnChange = (event) => {
     setForm({
@@ -28,7 +28,7 @@ function Signup() {
       .catch((err) => {
         console.log(err);
       });
-    // nav("/home");
+    nav("/login");
   };
 
   return (
@@ -77,8 +77,8 @@ function Signup() {
         <button onClick={onSubmithandler}>Sign Up</button>
       </form>
       <div className="gologin">
-      <p>Are you already a user ?</p>
-      <Link to="/login">Login here</Link>
+        <p>Are you already a user ?</p>
+        <Link to="/login">Login here</Link>
       </div>
     </div>
   );
