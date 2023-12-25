@@ -1,5 +1,5 @@
 import "./styles/login.css";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import axios from "axios";
 import { useNavigate, Link } from "react-router-dom";
 
@@ -7,33 +7,48 @@ function Login() {
   const nav = useNavigate();
   const [email, setEmail] = useState("");
   const [pass, setPass] = useState("");
-  const [users, setUsers] = useState([]);
+  const [users, setUsers] = useState({});
 
-  const LogUser = (e) => {
+  const [Token, setToken] = useState("");
+
+  const LogUser = async (e) => {
     e.preventDefault();
 
-    axios
-      .get("http://localhost:2000/user/getuser")
-      .then((res) => {
-        setUsers(res.data.getresult);
-      })
-      .catch((err) => {
-        console.log(err);
-      });
-
-    // eslint-disable-next-line array-callback-return
-    users.map((user) => {
-      // console.log(user);
-      if (user.email === email) {
-        if (user.password === pass) {
-          nav(`/?id=${user._id}`);
-        } else {
-          alert("Wrong Password!");
+    try {
+      // Sign in and get the token
+      const signInResponse = await axios.post(
+        "http://localhost:2000/user/signin",
+        {
+          email,
+          password: pass,
         }
-      } else {
-        // alert("user not found");
+      );
+
+      const token = signInResponse.data.token;
+      console.log("Token:", token);
+
+      // Set the token in the state or secure storage
+      setToken(token);
+
+      // Verify the token
+      const verifyTokenResponse = await axios.post(
+        "http://localhost:2000/user/verifyToken",
+        { token }
+      );
+
+      // Log the decoded token (assuming verifyTokenResponse contains the decoded token)
+      console.log("Decoded Token:", verifyTokenResponse.data);
+      if (verifyTokenResponse.data._id) {
+        nav(`/?id=${verifyTokenResponse.data._id}&token=${token}`)
       }
-    });
+    } catch (error) {
+      console.error("Error during login or token verification:", error);
+
+      // Handle errors, e.g., show an error message to the user
+    }
+
+
+
   };
 
   return (

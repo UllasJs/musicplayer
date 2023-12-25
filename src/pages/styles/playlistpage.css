@@ -14,7 +14,34 @@
 .playlist_main h1 {
   color: #fff;
 }
+.musicList {
+  overflow-y: scroll;
+  height: 400px;
+}
 .playlist_music {
   color: #fff;
   cursor: pointer;
+  display: flex;
+  width: 50%;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid #fff;
+}
+
+.delete__Track {
+  width: auto;
+  margin: 0;
+}
+
+.delete__playlist {
+  position: absolute;
+  top: 50px;
+  right: 100px;
+  width: auto;
+  text-transform: capitalize;
+}
+
+.playnameEditbtn {
+  width: auto;
+  margin-left: 60px;
 }

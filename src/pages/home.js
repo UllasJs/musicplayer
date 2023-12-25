@@ -16,12 +16,12 @@ function Home() {
   const params = new URLSearchParams(location.search);
   const userId = params.get("id");
 
-  const [song, setSong] = useState();
+  const [song, setSong] = useState("");
 
+  if (userId === null) {
+    nav("/login");
+  }
   useEffect(() => {
-    if (userId === null) {
-      nav("/login");
-    }
     axios
       .get("http://localhost:2000/track/gettrack/")
       .then((res) => {
@@ -31,7 +31,7 @@ function Home() {
         console.log(error);
       });
     // console.log(tracks);
-  }, [userId]);
+  }, [userId, song]);
 
   const trackList = tracks.map((track, index) => {
     return (
@@ -58,13 +58,12 @@ function Home() {
       <Sidebar />
       <div className="home">
         <h3 className="goodmorning">Good Morning</h3>
-        <div className="playlists_bar"></div>
         <h2>Music Library</h2>
         <div className="music_library">
           <ul className="music_list">{trackList}</ul>
         </div>
       </div>
-      <Music song={song} />
+      <Music userId={userId} song={song} />
     </div>
   );
 }
